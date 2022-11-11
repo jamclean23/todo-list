@@ -1,0 +1,104 @@
+/*CSS Stylesheet*/
+:root {
+    --header-color: green;
+    --main-background-color: white;
+    --card-background-color: red;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 6rem calc(100vh - 6rem);
+}
+
+/*HEADER----------------------*/
+header {
+    background-color: var(--header-color);
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+header h1 {
+    white-space: nowrap;
+    grid-column: 2/3;
+    justify-self: center;
+    color: white;
+    -webkit-text-stroke: 1px black;
+    font-weight: 1000;
+}
+header button {
+    height: 4rem;
+    width: 4rem;
+    justify-self: end;
+    border-radius: 8px;
+    margin-right: 1rem;
+    border-style: none;
+    background-color: white;
+    font-weight: 500;
+    font-size: 4rem;
+    overflow: hidden;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+header button:active {
+    box-shadow: inset 0 0 4px 1px black;
+}
+
+/*MAIN-----------*/
+main {
+    background-color: var(--main-background-color);
+    overflow-y: scroll;
+    padding: 1rem;
+}
+
+/*CARD-----------*/
+.card {
+    background-color: var(--card-background-color);
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    height: 10rem;
+    padding: 1rem;
+    column-gap: 1rem;
+    display: grid;
+    grid-template-columns: .5fr 3fr 5rem .5fr;
+    grid-template-rows: 2rem 1fr 1fr 1fr;
+    grid-template-areas: 
+    "upArrow   title       created xButton"
+    "upArrow   description created xButton"
+    "downArrow description dueDate checkButton"
+    "downArrow description dueDate checkButton"
+    ;
+}
+.upArrow {
+    grid-area: upArrow;
+}
+.title {
+    grid-area: title;
+    overflow: hidden;
+}
+.created {
+    grid-area: created;
+}
+.xButton {
+    grid-area: xButton;
+}
+.downArrow {
+    grid-area: downArrow;
+}
+.description {
+    grid-area: description;
+    overflow-y: scroll;
+}
+.dueDate {
+    grid-area: dueDate;
+}
+.checkButton {
+    grid-area: checkButton;
+}
