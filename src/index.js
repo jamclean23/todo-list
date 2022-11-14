@@ -1,18 +1,31 @@
 import './styles.css';
+import * as Modal from './modal.js';
+import * as Cards from './cards.js';
+//Generate Test Cards
 
-const main = document.querySelector('main');
-const emptyCard = 
-    `<div class="card">
-    <button class="upArrow">/\\</button>
-    <button class="downArrow">\\/</button>
-    <h3 class="title"></h3>
-    <div class="created">Created:</div>
-    <div class="dueDate">Due:</div>
-    <p class="description"></p>
-    <button class="xButton">X</button>
-    <button class="checkButton">✓</button>
-    </div>`
+for (let i = 0; i < 5; i++) {
+    Modal.show();
+    const title = document.querySelector('#title');
+    title.value = "Card " + i;
+    Cards.add(Modal.submit());
+    Modal.hide();
+    Modal.clear();
+}
+//Event Listeners
+const addButton = document.querySelector('.addButton');
+addButton.addEventListener('click', ()=>{
+    Modal.show();
+});
 
-main.innerHTML += emptyCard;
+const cancelButton = document.querySelector('.cancel');
+cancelButton.addEventListener('click', ()=>{
+    Modal.hide();
+    Modal.clear();
+});
 
-console.log(emptyCard);
+const submitButton = document.querySelector('.submit');
+submitButton.addEventListener('click', ()=>{
+    Cards.add(Modal.submit());
+    Modal.hide();
+    Modal.clear();
+});

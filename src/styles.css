@@ -3,6 +3,7 @@
     --header-color: green;
     --main-background-color: white;
     --card-background-color: red;
+    --modal-padding: 1rem;
 }
 
 * {
@@ -14,6 +15,88 @@ body {
     height: 100vh;
     display: grid;
     grid-template-rows: 6rem calc(100vh - 6rem);
+}
+
+button:active {
+    box-shadow: inset 0 0 4px 1px black;
+}
+
+/*MODAL-----------------------*/
+.modal {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.modal.active {
+    display: flex;
+}
+.modal > div {
+    background-color: white;
+    border-radius: 8px;
+    padding: var(--modal-padding);
+    width: 90%;
+    height: 80%;
+    overflow: auto;
+    position: relative;
+}
+.modal > div > div > * {
+    display: block;
+    margin-inline: auto;
+}
+.modal h2 {
+    display: block;
+    width: min-content;
+    white-space: nowrap;
+    margin-inline: auto;
+    height: 2rem;
+}
+.cancel {
+    right: .5rem;
+    top: .5rem;
+    padding: .5rem 1rem;
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid black;
+    position: absolute;
+}
+.modal > div > div {
+    height: calc(92% - var(--modal-padding) - 1rem);
+    overflow: auto;
+}
+.modal label {
+    width: min-content;
+    white-space: nowrap;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: .5rem;
+}
+.modal input:first-of-type {
+    border-radius: 8px;
+    padding: .5rem;
+    width: calc(100% - var(--modal-padding) - 20px);
+}
+.modal textarea {
+    height: 20rem;
+    overflow: auto;
+    resize: none;
+    padding: .5rem;
+    border-radius: 8px;
+    width: calc(100% - var(--modal-padding) - 20px);
+}
+.modal input[type=date] {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.modal div > div > button {
+    font-size: 1.2rem;
+    padding: .5rem 1rem;
+    border-radius: 8px;
+    margin-top: 3rem;
 }
 
 /*HEADER----------------------*/
@@ -47,9 +130,6 @@ header button {
     justify-content: center;
     align-content: center;
 }
-header button:active {
-    box-shadow: inset 0 0 4px 1px black;
-}
 
 /*MAIN-----------*/
 main {
@@ -81,7 +161,7 @@ main {
 }
 .title {
     grid-area: title;
-    overflow: hidden;
+    overflow: auto;
 }
 .created {
     grid-area: created;

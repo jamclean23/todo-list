@@ -5,6 +5,8 @@ module.exports = {
     mode: 'development',
     entry: {
         main: './src/index.js',
+        modal: './src/modal.js',
+        cards: './src/cards.js',
     },
     output: {
         path: path.resolve(__dirname, './dist'),
