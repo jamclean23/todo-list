@@ -156,6 +156,12 @@ main {
     "downArrow description dueDate checkButton"
     ;
 }
+.card.completed :not(button) {
+    text-decoration: line-through;
+}
+.card.completed {
+    background-color: dimgrey;
+}
 .upArrow {
     grid-area: upArrow;
 }

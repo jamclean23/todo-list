@@ -4,12 +4,7 @@ import * as Cards from './cards.js';
 //Generate Test Cards
 
 for (let i = 0; i < 5; i++) {
-    Modal.show();
-    const title = document.querySelector('#title');
-    title.value = "Card " + i;
-    Cards.add(Modal.submit());
-    Modal.hide();
-    Modal.clear();
+    Cards.add({title: "Card " + i, created: new Date().getFullYear()});
 }
 //Event Listeners
 const addButton = document.querySelector('.addButton');

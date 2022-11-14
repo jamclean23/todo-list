@@ -42,6 +42,9 @@ function submit() {
     let values = {};
     toBeSubmitted.forEach((element)=>{
         if ((element.name == 'date') && (element.value)) {
+            //Store the date in a format for comparing against others
+            values.comparedDueDate = new Date(element.value);
+            //Format the date for eventual output into card
             let year = element.value.slice(0,4);
             let date = element.value.slice(5) + "/" + year;
             date = date.replaceAll('-', '/');
