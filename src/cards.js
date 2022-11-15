@@ -33,8 +33,14 @@ function add(modalInfo) {
     newCard.meta.title = modalInfo.title;
     newCard.meta.description = modalInfo.description;
     newCard.meta.created = modalInfo.created;
-    newCard.meta.dueDate = modalInfo.date;
+    newCard.meta.date = modalInfo.date;
     newCard.meta.comparedDueDate = modalInfo.comparedDueDate;
+    if (!(modalInfo.completed)) {
+        newCard.meta.completed = false;
+    } else {
+        newCard.meta.completed = true;
+        newCard.classList.add('completed');
+    }
 
     savedCards = save();
 }
@@ -56,9 +62,9 @@ function updateEventListeners(card) {
     const upButton = card.querySelector('.upArrow');
     upButton.addEventListener('click', (event)=>{
         if (event.target.parentElement.previousElementSibling) {
-            console.log("previous sib: " + event.target.parentElement.previousElementSibling);
             const previousSibling = event.target.parentElement.previousSibling;
             main.insertBefore(card, previousSibling);
+            savedCards = save();
         }
     });
     //"Move down" button
@@ -71,13 +77,23 @@ function updateEventListeners(card) {
             } else {
                 main.appendChild(card);
             }
+            savedCards = save();
         }
     });
     //"Completed" button
     const completeButton = card.querySelector('.checkButton');
-    completeButton.addEventListener('click', ()=>{
+    completeButton.addEventListener('click', (event)=>{
         card.classList.toggle('completed');
         sortCompletedCards();
+        console.clear();
+        console.log(event.target.parentElement.classList.contains('completed'));
+        if (event.target.parentElement.classList.contains('completed')) {
+            event.target.parentElement.meta.completed = true;
+        } else {
+            event.target.parentElement.meta.completed = false;
+        }
+        console.log(event.target.parentElement.meta.completed);
+        savedCards = save();
     });
     savedCards = save();
 }
@@ -102,10 +118,9 @@ function sortCompletedCards() {
 function save() {
     //Store card to an array to be generated on next load
     const cards = [...document.querySelectorAll('.card')];
-    console.clear();
+    console.log(cards);
     let cardsString = JSON.stringify(cards);
-    console.log(cardsString);
-    console.log(JSON.parse(cardsString));
+    localStorage.setItem("cards", cardsString);
     return cardsString;
 
 }
@@ -115,10 +130,22 @@ function viewSaved() {
     return savedCards;
 }
 
+function loadCards() {
+    let cards = localStorage.getItem("cards");
+    if (cards) {
+        cards = JSON.parse(cards);
+        cards.reverse();
+        cards.forEach((card)=>{
+            add(card.meta);
+        });
+    }    
+}
+
 export {
     add,
     remove,
     updateEventListeners,
     viewSaved,
     save,
+    loadCards,
 }
