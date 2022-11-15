@@ -54,7 +54,7 @@ function submit() {
         }
     });
     let date =  new Date();
-    values.created = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getYear(); 
+    values.created = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear(); 
     return values
 }
 

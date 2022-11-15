@@ -1,11 +1,12 @@
 import './styles.css';
 import * as Modal from './modal.js';
 import * as Cards from './cards.js';
-//Generate Test Cards
 
+//Generate Test Cards
 for (let i = 0; i < 5; i++) {
     Cards.add({title: "Card " + i, created: new Date().getFullYear()});
 }
+
 //Event Listeners
 const addButton = document.querySelector('.addButton');
 addButton.addEventListener('click', ()=>{
@@ -30,6 +31,4 @@ devButton.innerText = "test";
 devButton.style.cssText = "position: fixed; top: 1rem; left: 1rem; padding: .5rem 1rem";
 document.body.appendChild(devButton);
 devButton.addEventListener('click', ()=>{
-    const savedCards = localStorage.getItem("savedCards");
-    console.log(JSON.parse(savedCards));
 });

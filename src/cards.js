@@ -18,16 +18,24 @@ function add(modalInfo) {
     const main = document.querySelector('main');
     const firstCard = main.querySelector('.card');
     if (firstCard) {
-        main.appendChild(newCard);
+        main.insertBefore(newCard, firstCard);
     } else {
         main.appendChild(newCard);
     }
     updateEventListeners(newCard);
+    //Fill card content
     newCard.querySelector('.title').innerText = modalInfo.title;
     newCard.querySelector('.description').innerText = modalInfo.description;
     newCard.querySelector('.created').innerText += "\n" + modalInfo.created;
     newCard.querySelector('.dueDate').innerText += "\n" + modalInfo.date;
-    newCard.classList.remove('newCard');
+    //assign properties for later use
+    newCard.meta = {};
+    newCard.meta.title = modalInfo.title;
+    newCard.meta.description = modalInfo.description;
+    newCard.meta.created = modalInfo.created;
+    newCard.meta.dueDate = modalInfo.date;
+    newCard.meta.comparedDueDate = modalInfo.comparedDueDate;
+
     savedCards = save();
 }
 
@@ -114,4 +122,5 @@ export {
     remove,
     updateEventListeners,
     viewSaved,
+    save,
 }
