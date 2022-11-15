@@ -84,15 +84,13 @@ function updateEventListeners(card) {
     const completeButton = card.querySelector('.checkButton');
     completeButton.addEventListener('click', (event)=>{
         card.classList.toggle('completed');
-        sortCompletedCards();
-        console.clear();
-        console.log(event.target.parentElement.classList.contains('completed'));
+        waitForTransition(event.target.parentElement, sortCompletedCards);
+        //sortCompletedCards();
         if (event.target.parentElement.classList.contains('completed')) {
             event.target.parentElement.meta.completed = true;
         } else {
             event.target.parentElement.meta.completed = false;
         }
-        console.log(event.target.parentElement.meta.completed);
         savedCards = save();
     });
     savedCards = save();
@@ -118,7 +116,6 @@ function sortCompletedCards() {
 function save() {
     //Store card to an array to be generated on next load
     const cards = [...document.querySelectorAll('.card')];
-    console.log(cards);
     let cardsString = JSON.stringify(cards);
     localStorage.setItem("cards", cardsString);
     return cardsString;
@@ -139,6 +136,27 @@ function loadCards() {
             add(card.meta);
         });
     }    
+}
+
+function waitForTransition(element, functionToFire) {
+    console.log("transitioning");
+    console.log(element);
+    function whichTransition(){
+        const transitions = {
+            'transition':'transitionend',
+            'OTransition':'oTransitionEnd',
+            'MozTransition':'transitionend',
+            'WebkitTransition':'webkitTransitionEnd'
+        }
+        for (const transition in transitions) {
+            if (element.style[transition] !== "undefined") {
+                return transitions[transition];
+            }
+        }    
+    }
+    let transitionend = whichTransition();
+    element.addEventListener(transitionend, functionToFire, false);
+    
 }
 
 export {
