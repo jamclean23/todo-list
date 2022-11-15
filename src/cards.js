@@ -55,7 +55,8 @@ function updateEventListeners(card) {
     //"Move up" button
     const upButton = card.querySelector('.upArrow');
     upButton.addEventListener('click', (event)=>{
-        if (event.target.parentElement.previousSibling) {
+        if (event.target.parentElement.previousElementSibling) {
+            console.log("previous sib: " + event.target.parentElement.previousElementSibling);
             const previousSibling = event.target.parentElement.previousSibling;
             main.insertBefore(card, previousSibling);
         }
@@ -101,14 +102,11 @@ function sortCompletedCards() {
 function save() {
     //Store card to an array to be generated on next load
     const cards = [...document.querySelectorAll('.card')];
-    //build object to be stored
-    cards.forEach((card)=>{
-        //title
-        //description
-        //date
-        //comparedDueDate
-    });
-    return cards;
+    console.clear();
+    let cardsString = JSON.stringify(cards);
+    console.log(cardsString);
+    console.log(JSON.parse(cardsString));
+    return cardsString;
 
 }
 
