@@ -1,5 +1,8 @@
 //Functions related to task cards
 
+
+import * as Modal from './modal.js';
+
 let savedCards = [];
 
 //Takes an object containing title, description, and due date
@@ -35,6 +38,7 @@ function add(modalInfo) {
     newCard.meta.created = modalInfo.created;
     newCard.meta.date = modalInfo.date;
     newCard.meta.comparedDueDate = modalInfo.comparedDueDate;
+    newCard.meta.originalDueDate = modalInfo.originalDueDate;
     if (!(modalInfo.completed)) {
         newCard.meta.completed = false;
     } else {
@@ -80,6 +84,7 @@ function updateEventListeners(card) {
             savedCards = save();
         }
     });
+
     //"Completed" button
     const completeButton = card.querySelector('.checkButton');
     completeButton.addEventListener('click', (event)=>{
@@ -94,6 +99,16 @@ function updateEventListeners(card) {
         savedCards = save();
     });
     savedCards = save();
+
+    //Expand on clicking title or description
+    const title = card.querySelector('h3');
+    title.addEventListener('click', editModal);
+    const description = card.querySelector('p');
+    description.addEventListener('click', editModal);
+
+    function editModal(event) {
+        Modal.show("edit", event.target.parentElement);
+    }
 }
 
 function sortCompletedCards() {
@@ -156,7 +171,26 @@ function waitForTransition(element, functionToFire) {
     }
     let transitionend = whichTransition();
     element.addEventListener(transitionend, functionToFire, false);
-    
+}
+
+function update(modalInfo, workingCard) {
+    const title = workingCard.querySelector('h3');
+    workingCard.meta.title = modalInfo.title;
+    title.innerText = modalInfo.title;
+
+    const description = workingCard.querySelector('p');
+    workingCard.meta.description = modalInfo.description;
+    description.innerText = modalInfo.description;
+
+    const date = workingCard.querySelector('.dueDate');
+    workingCard.meta.date = modalInfo.date;
+    workingCard.originalDueDate = modalInfo.originalDueDate;
+    workingCard.comparedDueDate = modalInfo.comparedDueDate;
+    date.innerText = "Due: " + "\n" + modalInfo.date;
+
+
+    savedCards = save();
+
 }
 
 export {
@@ -166,4 +200,5 @@ export {
     viewSaved,
     save,
     loadCards,
+    update,
 }

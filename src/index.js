@@ -19,7 +19,15 @@ cancelButton.addEventListener('click', ()=>{
 
 const submitButton = document.querySelector('.submit');
 submitButton.addEventListener('click', ()=>{
-    Cards.add(Modal.submit());
-    Modal.hide();
-    Modal.clear();
+    const modal = document.querySelector('.modal');
+    if (!(modal.mode)) {
+        Cards.add(Modal.submit());
+        Modal.hide();
+        Modal.clear();
+    } else if (modal.mode == "edit") {
+        Cards.update(Modal.submit(), modal.workingCard);
+        Modal.hide();
+        Modal.clear();
+    }
+
 });
