@@ -24,3 +24,12 @@ submitButton.addEventListener('click', ()=>{
     Modal.hide();
     Modal.clear();
 });
+
+const devButton = document.createElement('button');
+devButton.innerText = "test";
+devButton.style.cssText = "position: fixed; top: 1rem; left: 1rem; padding: .5rem 1rem";
+document.body.appendChild(devButton);
+devButton.addEventListener('click', ()=>{
+    const savedCards = localStorage.getItem("savedCards");
+    console.log(JSON.parse(savedCards));
+});
